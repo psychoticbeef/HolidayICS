@@ -122,6 +122,10 @@ function create_calendar($name, &$obj, $start, $end) {
 function parse($start, $end) {
 	$result = array();
 	$json = json_decode(file_get_contents('calendar.json'), true);
+	if (is_null($json)) {
+		echo 'Could not decode json.';
+		die();
+	}
 	foreach ($json as $key => &$value) {
 		$result []= create_calendar($key, $value, $start, $end);
 	}
