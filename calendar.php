@@ -134,7 +134,8 @@ function parse($start, $end) {
 }
 
 date_default_timezone_set('Europe/Berlin');
-$calendars = parse(2014, 2016);
+$current_year = (int)date("Y");
+$calendars = parse($current_year - 1, $current_year + 2);
 foreach ($calendars as $calendar) {
 	file_put_contents('/var/www/htdocs/feiertage/' . $calendar->title . '.ics', str_replace("\n", "\r\n", $calendar));
 }
