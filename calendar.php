@@ -125,7 +125,7 @@ function parse($start, $end) {
 	foreach ($json as $key => &$value) {
 		$result []= create_calendar($key, $value, $start, $end);
 	}
-	file_put_contents('calendar.json', json_encode($json));
+	file_put_contents('calendar.json', json_encode($json, JSON_PRETTY_PRINT));
 	return $result;
 }
 
