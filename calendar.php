@@ -24,9 +24,7 @@ EOF;
 	}
 
 	public function print_events() {
-		$result = '';
-		foreach ($this->events as $event) $result .= $event->__toString();
-		return $result;
+		return implode('', $this->events);
 	}
 
 	public function __toString() {
@@ -86,6 +84,10 @@ function get_easter_events(&$events, $year) {
 	$created->setDate($year - 3, 1, 1);
 	foreach ($events as $title => &$value) {
 		$easter = new DateTime('@' . easter_date($year));
+		if (!array_key_exists('diff', $value)) {
+			echo 'Error: Missing diff for ' . $title;
+			die();
+		}
 		$interval = new DateInterval(str_replace('-', '', $value['diff']));
 		if (strpos($value['diff'], '-') !== false) $interval->invert = true;
 		$date = $easter->add($interval);
@@ -113,8 +115,8 @@ function create_calendar($name, &$obj, $start, $end) {
 	for ($i = $start; $i <= $end; $i++) {
 		$calendar->events = array_merge($calendar->events, get_easter_events($obj['easter'], $i));
 	}
-	$created  = new DateTime();
-	$created->setDate(2014, 1, 1);
+	$created = new DateTime();
+	$created->setDate((int)date('Y'), 1, 1);
 	$calendar->events = array_merge($calendar->events, get_repeated_events($obj['repeat'], $created));
 	return $calendar;
 }
@@ -134,10 +136,16 @@ function parse($start, $end) {
 }
 
 date_default_timezone_set('Europe/Berlin');
-$current_year = (int)date("Y");
+$current_year = (int)date('Y');
 $calendars = parse($current_year - 1, $current_year + 2);
+if ($argc > 1) $destination_folder = realpath($argv[1]);
+else $destination_folder = realpath('');
+if ($destination_folder === false) {
+	echo 'Error: Path not found';
+	die();
+}
 foreach ($calendars as $calendar) {
-	file_put_contents('/var/www/htdocs/feiertage/' . $calendar->title . '.ics', str_replace("\n", "\r\n", $calendar));
+	file_put_contents($destination_folder . DIRECTORY_SEPARATOR . $calendar->title . '.ics', str_replace("\n", "\r\n", $calendar));
 }
 
 
