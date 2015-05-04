@@ -111,9 +111,11 @@ function get_repeated_events(&$events, $created) {
 }
 
 function create_calendar($name, &$obj, $start, $end) {
-	$calendar = new Calendar('Feiertage', $name);
-	for ($i = $start; $i <= $end; $i++) {
-		$calendar->events = array_merge($calendar->events, get_easter_events($obj['easter'], $i));
+	$calendar = new Calendar('', $name);
+	if (array_key_exists('easter', $obj)) {
+		for ($i = $start; $i <= $end; $i++) {
+			$calendar->events = array_merge($calendar->events, get_easter_events($obj['easter'], $i));
+		}
 	}
 	$created = new DateTime();
 	$created->setDate((int)date('Y'), 1, 1);
@@ -121,9 +123,9 @@ function create_calendar($name, &$obj, $start, $end) {
 	return $calendar;
 }
 
-function parse($start, $end) {
+function parse($start, $end, $in_file) {
 	$result = array();
-	$json = json_decode(file_get_contents('calendar.json'), true);
+	$json = json_decode(file_get_contents($in_file), true);
 	if (is_null($json)) {
 		echo 'Could not decode json.';
 		die();
@@ -137,9 +139,11 @@ function parse($start, $end) {
 
 date_default_timezone_set('Europe/Berlin');
 $current_year = (int)date('Y');
-$calendars = parse($current_year - 1, $current_year + 2);
 if ($argc > 1) $destination_folder = realpath($argv[1]);
 else $destination_folder = realpath('');
+if ($argc > 2) $in_file = realpath($argv[2]);
+else $in_file = 'calendar.json';
+$calendars = parse($current_year - 1, $current_year + 2, $in_file);
 if ($destination_folder === false) {
 	echo 'Error: Path not found';
 	die();

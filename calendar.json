@@ -2,39 +2,65 @@
     "RLP": {
         "repeat": {
             "Neujahr": {
-                "date": "0101"
+                "date": "0101",
+                "uid": "55472f9c6b0ee8.56991271"
             },
             "Tag der Arbeit": {
-                "date": "0501"
+                "date": "0501",
+                "uid": "55472f9c6b11a9.71339559"
             },
             "Tag der Deutschen Einheit": {
-                "date": "1003"
+                "date": "1003",
+                "uid": "55472f9c6b1431.34496438"
             },
             "Allerheiligen": {
-                "date": "1101"
+                "date": "1101",
+                "uid": "55472f9c6b16c1.53490334"
             },
             "1. Weihnachtstag": {
-                "date": "1225"
+                "date": "1225",
+                "uid": "55472f9c6b1954.52485711"
             },
             "2. Weihnachtstag": {
-                "date": "1226"
+                "date": "1226",
+                "uid": "55472f9c6b1bf2.86133612"
             }
         },
         "easter": {
             "Karfreitag": {
-                "diff": "P-1D"
+                "diff": "P-1D",
+                "uid_2014": "55472f9c6abb65.38782937",
+                "uid_2015": "55472f9c6ad239.20935314",
+                "uid_2016": "55472f9c6ae6a4.64659549",
+                "uid_2017": "55472f9c6afb18.56741807"
             },
             "Ostermontag": {
-                "diff": "P2D"
+                "diff": "P2D",
+                "uid_2014": "55472f9c6ac170.71003888",
+                "uid_2015": "55472f9c6ad623.90057553",
+                "uid_2016": "55472f9c6aea81.68897584",
+                "uid_2017": "55472f9c6afee5.54821863"
             },
             "Christi Himmelfahrt": {
-                "diff": "P40D"
-						},
+                "diff": "P40D",
+                "uid_2014": "55472f9c6ac562.42096186",
+                "uid_2015": "55472f9c6ad9f4.02490744",
+                "uid_2016": "55472f9c6aee40.51981058",
+                "uid_2017": "55472f9c6b02e2.01163475"
+            },
             "Pfingstmontag": {
-                "diff": "P51D"
+                "diff": "P51D",
+                "uid_2014": "55472f9c6ac936.00039775",
+                "uid_2015": "55472f9c6adda8.54221704",
+                "uid_2016": "55472f9c6af244.72827038",
+                "uid_2017": "55472f9c6b06a5.96632065"
             },
             "Fronleichnam": {
-                "diff": "P61D"
+                "diff": "P61D",
+                "uid_2014": "55472f9c6acce2.91160164",
+                "uid_2015": "55472f9c6ae163.47872693",
+                "uid_2016": "55472f9c6af603.14269215",
+                "uid_2017": "55472f9c6b0a63.42641206"
             }
         }
     }
