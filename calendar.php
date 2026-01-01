@@ -83,7 +83,10 @@ function get_easter_events(&$events, $year) {
 	$created = new DateTime();
 	$created->setDate($year - 3, 1, 1);
 	foreach ($events as $title => &$value) {
-		$easter = new DateTime('@' . easter_date($year));
+		// $easter = new DateTime('@' . easter_date($year)); // problem with github workflow re. timezone
+		$easter = new DateTime("$year-03-21");
+		$easter->add(new DateInterval('P' . easter_days($year) . 'D'));
+		$easter->sub(new DateInterval('P1D'));
 		if (!array_key_exists('diff', $value)) {
 			echo 'Error: Missing diff for ' . $title;
 			die();

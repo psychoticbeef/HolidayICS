@@ -1,0 +1,44 @@
+name: Generate German Holidays Test
+
+on:
+  # Run automatically at 06:00 UTC on January 1st every year
+  schedule:
+    - cron: '0 6 1 1 *'
+  # Allow running manually from the Actions tab for testing
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Run Calendar Generator
+        # Arguments: Output to current dir (.), Input file (calendar.json)
+        run: php calendar.php
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "Calendar Bot"
+          git config --global user.email "actions@github.com"
+          
+          # Add the JSON (to save new UIDs) and the ICS files
+          git add calendar.json *.ics
+          
+          # Check if there are changes; if yes, commit and push
+          if [[ `git status --porcelain` ]]; then
+            git commit -m "Auto-update calendar for $(date +'%Y')"
+            git push
+          else
+            echo "No changes to commit."
+          fi
